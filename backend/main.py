@@ -18,26 +18,37 @@ app = FastAPI(
 )
 
 
-# Allow the frontend to communicate with the backend
-app.add_middleware(
-    CORSMiddleware,
-
-    allow_origins=[
+# Allowed frontend origins
+ALLOWED_ORIGINS = [
     "http://127.0.0.1:5500",
     "http://localhost:5500",
     "https://bbdians.onrender.com",
-],
+]
+
+
+app.add_middleware(
+    CORSMiddleware,
+
+    allow_origins=ALLOWED_ORIGINS,
 
     allow_credentials=False,
-    allow_methods=["*"],
-    allow_headers=["*"],
+
+    allow_methods=[
+        "GET",
+        "POST",
+        "PUT",
+        "DELETE",
+        "OPTIONS",
+    ],
+
+    allow_headers=[
+        "Content-Type",
+        "Authorization",
+    ],
 )
 
 
-# Public confession routes
 app.include_router(router)
-
-# Private admin routes
 app.include_router(admin_router)
 
 
