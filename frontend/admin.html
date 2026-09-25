@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>BBDIANS | Admin Login</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+
+        body {
+
+            min-height: 100vh;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 20px;
+
+            background:
+                radial-gradient(
+                    circle at top left,
+                    #35105f,
+                    transparent 35%
+                ),
+                radial-gradient(
+                    circle at bottom right,
+                    #5a124e,
+                    transparent 35%
+                ),
+                #0d0715;
+
+            color: white;
+
+        }
+
+
+        .login-card {
+
+            width: 100%;
+
+            max-width: 430px;
+
+            padding: 38px;
+
+            border-radius: 24px;
+
+            background:
+                rgba(255,255,255,0.06);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.12);
+
+            backdrop-filter: blur(20px);
+
+            box-shadow:
+                0 25px 80px
+                rgba(0,0,0,0.4);
+
+        }
+
+
+        .brand {
+
+            text-align: center;
+
+            margin-bottom: 30px;
+
+        }
+
+
+        .logo {
+
+            width: 64px;
+
+            height: 64px;
+
+            margin: 0 auto 15px;
+
+            border-radius: 18px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #a855f7,
+                    #ec4899
+                );
+
+            font-size: 30px;
+
+            font-weight: bold;
+
+        }
+
+
+        .brand h1 {
+
+            font-size: 30px;
+
+            margin-bottom: 7px;
+
+        }
+
+
+        .brand p {
+
+            color: #aaa;
+
+            font-size: 14px;
+
+        }
+
+
+        .private-badge {
+
+            display: inline-block;
+
+            margin-top: 14px;
+
+            padding: 6px 12px;
+
+            border-radius: 20px;
+
+            background:
+                rgba(168,85,247,0.15);
+
+            color: #c084fc;
+
+            font-size: 12px;
+
+        }
+
+
+        .form-group {
+
+            margin-bottom: 20px;
+
+        }
+
+
+        label {
+
+            display: block;
+
+            margin-bottom: 8px;
+
+            color: #ddd;
+
+            font-size: 14px;
+
+        }
+
+
+        .password-wrapper {
+
+            position: relative;
+
+        }
+
+
+        input {
+
+            width: 100%;
+
+            padding: 14px 50px 14px 15px;
+
+            border-radius: 12px;
+
+            border:
+                1px solid
+                rgba(255,255,255,0.12);
+
+            background:
+                rgba(255,255,255,0.06);
+
+            color: white;
+
+            outline: none;
+
+            font-size: 15px;
+
+        }
+
+
+        input:focus {
+
+            border-color: #a855f7;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(168,85,247,0.12);
+
+        }
+
+
+        .eye-btn {
+
+            position: absolute;
+
+            right: 12px;
+
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            border: none;
+
+            background: transparent;
+
+            color: #aaa;
+
+            cursor: pointer;
+
+            font-size: 18px;
+
+        }
+
+
+        .eye-btn:hover {
+
+            color: white;
+
+        }
+
+
+        .login-btn {
+
+            width: 100%;
+
+            padding: 14px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #8b5cf6,
+                    #ec4899
+                );
+
+            color: white;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.25s;
+
+        }
+
+
+        .login-btn:hover {
+
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 10px 30px
+                rgba(168,85,247,0.25);
+
+        }
+
+
+        .login-btn:disabled {
+
+            opacity: 0.6;
+
+            cursor: not-allowed;
+
+            transform: none;
+
+        }
+
+
+        #message {
+
+            margin-top: 16px;
+
+            padding: 12px;
+
+            border-radius: 10px;
+
+            font-size: 13px;
+
+            display: none;
+
+        }
+
+
+        .error {
+
+            display: block !important;
+
+            background:
+                rgba(239,68,68,0.12);
+
+            border:
+                1px solid
+                rgba(239,68,68,0.3);
+
+            color: #fca5a5;
+
+        }
+
+
+        .success {
+
+            display: block !important;
+
+            background:
+                rgba(34,197,94,0.12);
+
+            border:
+                1px solid
+                rgba(34,197,94,0.3);
+
+            color: #86efac;
+
+        }
+
+
+        .security-note {
+
+            margin-top: 25px;
+
+            padding-top: 20px;
+
+            border-top:
+                1px solid
+                rgba(255,255,255,0.08);
+
+            color: #777;
+
+            font-size: 11px;
+
+            line-height: 1.6;
+
+            text-align: center;
+
+        }
+
+
+        @media (max-width: 500px) {
+
+            .login-card {
+
+                padding: 28px 22px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="login-card">
+
+
+    <div class="brand">
+
+        <div class="logo">
+            B
+        </div>
+
+        <h1>BBDIANS</h1>
+
+        <p>
+            Anonymous Confession Platform
+        </p>
+
+        <span class="private-badge">
+            🔒 Private Admin Access
+        </span>
+
+    </div>
+
+
+    <form id="loginForm">
+
+
+        <div class="form-group">
+
+            <label for="password">
+                Admin Password
+            </label>
+
+
+            <div class="password-wrapper">
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Enter admin password"
+                    autocomplete="current-password"
+                    required
+                >
+
+
+                <button
+                    type="button"
+                    class="eye-btn"
+                    id="eyeBtn"
+                    onclick="togglePassword()"
+                >
+                    👁
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <button
+            type="submit"
+            class="login-btn"
+            id="loginBtn"
+        >
+            Login to Dashboard
+        </button>
+
+
+        <div id="message"></div>
+
+
+    </form>
+
+
+    <div class="security-note">
+
+        Your password is verified by the BBDIANS
+        backend. The dashboard uses a temporary
+        authentication token instead of storing your
+        password.
+
+    </div>
+
+
+</div>
+
+
+<script>
+
+
+const API_URL =
+    "http://127.0.0.1:8000/admin/login";
+
+
+const form =
+    document.getElementById(
+        "loginForm"
+    );
+
+
+const passwordInput =
+    document.getElementById(
+        "password"
+    );
+
+
+const loginBtn =
+    document.getElementById(
+        "loginBtn"
+    );
+
+
+const message =
+    document.getElementById(
+        "message"
+    );
+
+
+/* PASSWORD VISIBILITY */
+
+function togglePassword() {
+
+    if (
+        passwordInput.type ===
+        "password"
+    ) {
+
+        passwordInput.type =
+            "text";
+
+        document.getElementById(
+            "eyeBtn"
+        ).textContent = "🙈";
+
+    } else {
+
+        passwordInput.type =
+            "password";
+
+        document.getElementById(
+            "eyeBtn"
+        ).textContent = "👁";
+
+    }
+
+}
+
+
+/* LOGIN */
+
+form.addEventListener(
+    "submit",
+    async function(event) {
+
+        event.preventDefault();
+
+
+        const password =
+            passwordInput.value.trim();
+
+
+        if (!password) {
+
+            showMessage(
+                "Please enter the admin password.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        loginBtn.disabled =
+            true;
+
+        loginBtn.textContent =
+            "Signing in...";
+
+
+        hideMessage();
+
+
+        try {
+
+            const response =
+                await fetch(
+                    API_URL,
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body: JSON.stringify({
+                            password:
+                                password
+                        })
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    data.detail ||
+                    "Invalid admin password."
+                );
+
+            }
+
+
+            /*
+             * Store ONLY the authentication
+             * token.
+             *
+             * The actual password is NOT stored.
+             */
+
+            sessionStorage.setItem(
+                "bbdians_admin_token",
+                data.access_token
+            );
+
+
+            sessionStorage.setItem(
+                "bbdians_admin",
+                "true"
+            );
+
+
+            showMessage(
+                "Login successful. Opening dashboard...",
+                "success"
+            );
+
+
+            setTimeout(
+                function() {
+
+                    window.location.href =
+                        "dashboard.html";
+
+                },
+                500
+            );
+
+        }
+
+
+        catch (error) {
+
+            console.error(error);
+
+
+            showMessage(
+                error.message ||
+                "Unable to connect to the backend.",
+                "error"
+            );
+
+        }
+
+
+        finally {
+
+            loginBtn.disabled =
+                false;
+
+            loginBtn.textContent =
+                "Login to Dashboard";
+
+        }
+
+    }
+);
+
+
+/* MESSAGE */
+
+function showMessage(
+    text,
+    type
+) {
+
+    message.textContent =
+        text;
+
+    message.className =
+        type;
+
+}
+
+
+function hideMessage() {
+
+    message.textContent =
+        "";
+
+    message.className =
+        "";
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>

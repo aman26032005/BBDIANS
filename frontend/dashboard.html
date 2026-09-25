@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>BBDIANS | Admin Dashboard</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+
+        body {
+
+            min-height: 100vh;
+
+            background:
+                radial-gradient(
+                    circle at top left,
+                    #35105f,
+                    transparent 35%
+                ),
+                radial-gradient(
+                    circle at bottom right,
+                    #5a124e,
+                    transparent 35%
+                ),
+                #0d0715;
+
+            color: white;
+
+        }
+
+
+        header {
+
+            height: 75px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 35px;
+
+            border-bottom:
+                1px solid
+                rgba(255,255,255,0.1);
+
+            background:
+                rgba(10,5,18,0.75);
+
+            backdrop-filter: blur(15px);
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 10;
+
+        }
+
+
+        .logo {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+        }
+
+
+        .logo-icon {
+
+            width: 42px;
+
+            height: 42px;
+
+            border-radius: 12px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #a855f7,
+                    #ec4899
+                );
+
+            font-size: 21px;
+
+            font-weight: bold;
+
+        }
+
+
+        .logo-text h2 {
+
+            font-size: 21px;
+
+        }
+
+
+        .logo-text span {
+
+            color: #aaa;
+
+            font-size: 12px;
+
+        }
+
+
+        .logout-btn {
+
+            border:
+                1px solid
+                rgba(255,255,255,0.15);
+
+            background:
+                rgba(255,255,255,0.06);
+
+            color: white;
+
+            padding: 10px 18px;
+
+            border-radius: 10px;
+
+            cursor: pointer;
+
+            transition: 0.25s;
+
+        }
+
+
+        .logout-btn:hover {
+
+            background: #ef4444;
+
+            border-color: #ef4444;
+
+        }
+
+
+        main {
+
+            max-width: 1250px;
+
+            margin: auto;
+
+            padding: 35px 25px 60px;
+
+        }
+
+
+        .welcome {
+
+            margin-bottom: 28px;
+
+        }
+
+
+        .welcome h1 {
+
+            font-size: 30px;
+
+            margin-bottom: 7px;
+
+        }
+
+
+        .welcome p {
+
+            color: #aaa;
+
+        }
+
+
+        .stats {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3,1fr);
+
+            gap: 18px;
+
+            margin-bottom: 30px;
+
+        }
+
+
+        .stat-card {
+
+            padding: 23px;
+
+            border-radius: 17px;
+
+            border:
+                1px solid
+                rgba(255,255,255,0.09);
+
+            background:
+                rgba(255,255,255,0.055);
+
+            backdrop-filter: blur(15px);
+
+        }
+
+
+        .stat-title {
+
+            color: #aaa;
+
+            font-size: 14px;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .stat-number {
+
+            font-size: 31px;
+
+            font-weight: bold;
+
+        }
+
+
+        .controls {
+
+            display: flex;
+
+            gap: 12px;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .search {
+
+            flex: 1;
+
+            padding: 14px 17px;
+
+            border-radius: 12px;
+
+            border:
+                1px solid
+                rgba(255,255,255,0.12);
+
+            background:
+                rgba(255,255,255,0.06);
+
+            color: white;
+
+            outline: none;
+
+            font-size: 14px;
+
+        }
+
+
+        .search::placeholder {
+
+            color: #888;
+
+        }
+
+
+        .refresh-btn {
+
+            padding: 0 20px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #8b5cf6,
+                    #ec4899
+                );
+
+            color: white;
+
+            cursor: pointer;
+
+            font-weight: bold;
+
+        }
+
+
+        #status {
+
+            margin-bottom: 20px;
+
+            color: #aaa;
+
+            font-size: 14px;
+
+        }
+
+
+        #confessions {
+
+            display: grid;
+
+            gap: 16px;
+
+        }
+
+
+        .confession-card {
+
+            background:
+                rgba(255,255,255,0.055);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.09);
+
+            border-radius: 17px;
+
+            padding: 22px;
+
+            backdrop-filter: blur(15px);
+
+        }
+
+
+        .confession-top {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .confession-id {
+
+            color: #c084fc;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
+        }
+
+
+        .badge {
+
+            padding: 5px 10px;
+
+            border-radius: 20px;
+
+            font-size: 11px;
+
+            font-weight: bold;
+
+        }
+
+
+        .badge-new {
+
+            background:
+                rgba(34,197,94,0.15);
+
+            color: #4ade80;
+
+        }
+
+
+        .badge-read {
+
+            background:
+                rgba(148,163,184,0.15);
+
+            color: #94a3b8;
+
+        }
+
+
+        .message {
+
+            color: #eee;
+
+            line-height: 1.7;
+
+            font-size: 15px;
+
+            white-space: pre-wrap;
+
+            word-break: break-word;
+
+            margin-bottom: 16px;
+
+        }
+
+
+        .date {
+
+            color: #777;
+
+            font-size: 12px;
+
+            margin-bottom: 18px;
+
+        }
+
+
+        .actions {
+
+            display: flex;
+
+            gap: 10px;
+
+            border-top:
+                1px solid
+                rgba(255,255,255,0.07);
+
+            padding-top: 15px;
+
+        }
+
+
+        .action-btn {
+
+            border: none;
+
+            padding: 9px 14px;
+
+            border-radius: 9px;
+
+            color: white;
+
+            cursor: pointer;
+
+            font-size: 13px;
+
+            transition: 0.2s;
+
+        }
+
+
+        .read-btn {
+
+            background:
+                rgba(34,197,94,0.15);
+
+            color: #4ade80;
+
+        }
+
+
+        .read-btn:hover {
+
+            background:
+                rgba(34,197,94,0.3);
+
+        }
+
+
+        .delete-btn {
+
+            background:
+                rgba(239,68,68,0.15);
+
+            color: #f87171;
+
+        }
+
+
+        .delete-btn:hover {
+
+            background:
+                rgba(239,68,68,0.3);
+
+        }
+
+
+        .empty {
+
+            text-align: center;
+
+            padding: 60px 20px;
+
+            border:
+                1px dashed
+                rgba(255,255,255,0.12);
+
+            border-radius: 17px;
+
+            color: #888;
+
+        }
+
+
+        .loading {
+
+            text-align: center;
+
+            padding: 50px;
+
+            color: #aaa;
+
+        }
+
+
+        .error {
+
+            background:
+                rgba(239,68,68,0.12);
+
+            border:
+                1px solid
+                rgba(239,68,68,0.3);
+
+            color: #fca5a5;
+
+            padding: 15px;
+
+            border-radius: 12px;
+
+        }
+
+
+        @media (max-width:700px) {
+
+            header {
+
+                padding: 0 18px;
+
+            }
+
+
+            main {
+
+                padding:
+                    25px 15px 50px;
+
+            }
+
+
+            .stats {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+
+            .controls {
+
+                flex-direction:
+                    column;
+
+            }
+
+
+            .refresh-btn {
+
+                padding: 13px;
+
+            }
+
+
+            .welcome h1 {
+
+                font-size: 25px;
+
+            }
+
+
+            .actions {
+
+                flex-wrap: wrap;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+
+    <div class="logo">
+
+
+        <div class="logo-icon">
+            B
+        </div>
+
+
+        <div class="logo-text">
+
+            <h2>BBDIANS</h2>
+
+            <span>
+                Private Admin Panel
+            </span>
+
+        </div>
+
+
+    </div>
+
+
+    <button
+        class="logout-btn"
+        onclick="logout()"
+    >
+        Logout
+    </button>
+
+
+</header>
+
+
+
+<main>
+
+
+    <div class="welcome">
+
+        <h1>
+            Admin Dashboard 👋
+        </h1>
+
+        <p>
+            Manage anonymous confessions
+            submitted through BBDIANS.
+        </p>
+
+    </div>
+
+
+
+    <section class="stats">
+
+
+        <div class="stat-card">
+
+            <div class="stat-title">
+                Total Confessions
+            </div>
+
+            <div
+                class="stat-number"
+                id="totalCount"
+            >
+                0
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-title">
+                New Confessions
+            </div>
+
+            <div
+                class="stat-number"
+                id="newCount"
+            >
+                0
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-title">
+                Read Confessions
+            </div>
+
+            <div
+                class="stat-number"
+                id="readCount"
+            >
+                0
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+
+    <div class="controls">
+
+
+        <input
+            type="text"
+            id="searchInput"
+            class="search"
+            placeholder="Search confessions..."
+        >
+
+
+        <button
+            class="refresh-btn"
+            onclick="loadConfessions()"
+        >
+            ↻ Refresh
+        </button>
+
+
+    </div>
+
+
+
+    <div id="status">
+        Loading confessions...
+    </div>
+
+
+
+    <section id="confessions">
+
+        <div class="loading">
+            Loading...
+        </div>
+
+    </section>
+
+
+</main>
+
+
+
+<script>
+
+
+/* API */
+
+const API_BASE =
+    "http://127.0.0.1:8000";
+
+
+/* GET JWT TOKEN */
+
+const adminToken =
+    sessionStorage.getItem(
+        "bbdians_admin_token"
+    );
+
+
+const isAdmin =
+    sessionStorage.getItem(
+        "bbdians_admin"
+    );
+
+
+/*
+ * If there is no token,
+ * return to login.
+ */
+
+if (
+    isAdmin !== "true" ||
+    !adminToken
+) {
+
+    window.location.href =
+        "admin.html";
+
+}
+
+
+/* DATA */
+
+let allConfessions = [];
+
+
+
+/* AUTH HEADERS */
+
+function getAuthHeaders() {
+
+    return {
+
+        "Authorization":
+            `Bearer ${adminToken}`
+
+    };
+
+}
+
+
+
+/* LOAD CONFESSIONS */
+
+async function loadConfessions() {
+
+
+    const container =
+        document.getElementById(
+            "confessions"
+        );
+
+
+    const status =
+        document.getElementById(
+            "status"
+        );
+
+
+    container.innerHTML =
+        `
+        <div class="loading">
+            Loading confessions...
+        </div>
+        `;
+
+
+    status.textContent =
+        "Connecting to BBDIANS server...";
+
+
+    try {
+
+
+        const response =
+            await fetch(
+                `${API_BASE}/admin/confessions`,
+                {
+                    method: "GET",
+
+                    headers:
+                        getAuthHeaders()
+                }
+            );
+
+
+        if (
+            response.status === 401
+        ) {
+
+            logout();
+
+            return;
+
+        }
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Unable to load confessions."
+            );
+
+        }
+
+
+        allConfessions =
+            await response.json();
+
+
+        updateStats();
+
+
+        renderConfessions(
+            allConfessions
+        );
+
+
+        status.textContent =
+            `${allConfessions.length} confession(s) loaded`;
+
+
+    }
+
+
+    catch (error) {
+
+
+        console.error(error);
+
+
+        container.innerHTML =
+            `
+            <div class="error">
+
+                ❌ ${escapeHtml(
+                    error.message
+                )}
+
+                <br><br>
+
+                Make sure the FastAPI
+                backend is running.
+
+            </div>
+            `;
+
+
+        status.textContent =
+            "Connection failed.";
+
+    }
+
+}
+
+
+
+/* UPDATE STATS */
+
+function updateStats() {
+
+
+    const total =
+        allConfessions.length;
+
+
+    const unread =
+        allConfessions.filter(
+            item =>
+                !item.is_read
+        ).length;
+
+
+    const read =
+        allConfessions.filter(
+            item =>
+                item.is_read
+        ).length;
+
+
+    document.getElementById(
+        "totalCount"
+    ).textContent =
+        total;
+
+
+    document.getElementById(
+        "newCount"
+    ).textContent =
+        unread;
+
+
+    document.getElementById(
+        "readCount"
+    ).textContent =
+        read;
+
+}
+
+
+
+/* RENDER */
+
+function renderConfessions(
+    confessions
+) {
+
+
+    const container =
+        document.getElementById(
+            "confessions"
+        );
+
+
+    if (
+        !confessions.length
+    ) {
+
+
+        container.innerHTML =
+            `
+            <div class="empty">
+
+                <h3>
+                    No confessions found
+                </h3>
+
+                <p>
+                    Anonymous confessions
+                    will appear here.
+                </p>
+
+            </div>
+            `;
+
+
+        return;
+
+    }
+
+
+
+    container.innerHTML =
+        confessions
+            .map(
+                confession => {
+
+
+                    const date =
+                        new Date(
+                            confession.created_at
+                        ).toLocaleString();
+
+
+                    return `
+
+                    <article
+                        class="confession-card"
+                    >
+
+
+                        <div
+                            class="confession-top"
+                        >
+
+
+                            <span
+                                class="confession-id"
+                            >
+                                CONFESSION
+                                #${confession.id}
+                            </span>
+
+
+                            <span
+                                class="
+                                    badge
+                                    ${
+                                        confession.is_read
+                                        ? "badge-read"
+                                        : "badge-new"
+                                    }
+                                "
+                            >
+
+                                ${
+                                    confession.is_read
+                                    ? "READ"
+                                    : "NEW"
+                                }
+
+                            </span>
+
+
+                        </div>
+
+
+
+                        <div
+                            class="message"
+                        >
+
+                            ${escapeHtml(
+                                confession.message
+                            )}
+
+                        </div>
+
+
+
+                        <div
+                            class="date"
+                        >
+
+                            ${date}
+
+                        </div>
+
+
+
+                        <div
+                            class="actions"
+                        >
+
+
+                            ${
+                                confession.is_read
+                                ? ""
+                                : `
+
+                                <button
+                                    class="
+                                        action-btn
+                                        read-btn
+                                    "
+                                    onclick="
+                                        markAsRead(
+                                            ${confession.id}
+                                        )
+                                    "
+                                >
+                                    ✓ Mark as Read
+                                </button>
+
+                                `
+                            }
+
+
+
+                            <button
+                                class="
+                                    action-btn
+                                    delete-btn
+                                "
+                                onclick="
+                                    deleteConfession(
+                                        ${confession.id}
+                                    )
+                                "
+                            >
+                                🗑 Delete
+                            </button>
+
+
+                        </div>
+
+
+                    </article>
+
+                    `;
+
+                }
+            )
+            .join("");
+
+}
+
+
+
+/* MARK AS READ */
+
+async function markAsRead(
+    confessionId
+) {
+
+
+    try {
+
+
+        const response =
+            await fetch(
+                `${API_BASE}/admin/confessions/${confessionId}/read`,
+                {
+                    method: "PUT",
+
+                    headers:
+                        getAuthHeaders()
+                }
+            );
+
+
+        if (
+            response.status === 401
+        ) {
+
+            logout();
+
+            return;
+
+        }
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Could not mark confession as read."
+            );
+
+        }
+
+
+        await loadConfessions();
+
+    }
+
+
+    catch (error) {
+
+        alert(
+            error.message
+        );
+
+    }
+
+}
+
+
+
+/* DELETE */
+
+async function deleteConfession(
+    confessionId
+) {
+
+
+    const confirmed =
+        confirm(
+            "Are you sure you want to permanently delete this confession?"
+        );
+
+
+    if (!confirmed) {
+
+        return;
+
+    }
+
+
+
+    try {
+
+
+        const response =
+            await fetch(
+                `${API_BASE}/admin/confessions/${confessionId}`,
+                {
+                    method: "DELETE",
+
+                    headers:
+                        getAuthHeaders()
+                }
+            );
+
+
+        if (
+            response.status === 401
+        ) {
+
+            logout();
+
+            return;
+
+        }
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Could not delete confession."
+            );
+
+        }
+
+
+        await loadConfessions();
+
+    }
+
+
+    catch (error) {
+
+        alert(
+            error.message
+        );
+
+    }
+
+}
+
+
+
+/* SEARCH */
+
+document
+    .getElementById(
+        "searchInput"
+    )
+    .addEventListener(
+        "input",
+        function () {
+
+
+            const search =
+                this.value
+                    .toLowerCase()
+                    .trim();
+
+
+            const filtered =
+                allConfessions.filter(
+                    confession =>
+                        confession.message
+                            .toLowerCase()
+                            .includes(
+                                search
+                            )
+                );
+
+
+            renderConfessions(
+                filtered
+            );
+
+
+            document.getElementById(
+                "status"
+            ).textContent =
+                `${filtered.length} confession(s) found`;
+
+        }
+    );
+
+
+
+/* ESCAPE HTML */
+
+function escapeHtml(
+    text
+) {
+
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+
+    div.textContent =
+        text;
+
+
+    return div.innerHTML;
+
+}
+
+
+
+/* LOGOUT */
+
+function logout() {
+
+
+    sessionStorage.removeItem(
+        "bbdians_admin"
+    );
+
+
+    sessionStorage.removeItem(
+        "bbdians_admin_token"
+    );
+
+
+    window.location.href =
+        "admin.html";
+
+}
+
+
+
+/* START */
+
+loadConfessions();
+
+
+</script>
+
+
+</body>
+
+</html>
