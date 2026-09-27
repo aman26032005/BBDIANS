@@ -10,16 +10,60 @@
         content="width=device-width, initial-scale=1.0"
     >
 
+    <meta
+        name="description"
+        content="BBDIANS private administration dashboard"
+    >
+
     <title>BBDIANS | Admin Dashboard</title>
 
 
     <style>
 
+        /* =========================================================
+           RESET
+        ========================================================= */
+
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: Arial, Helvetica, sans-serif;
+        }
+
+
+        :root {
+
+            --bg-main: #08050f;
+            --bg-secondary: #10091c;
+
+            --card: rgba(255,255,255,0.055);
+            --card-hover: rgba(255,255,255,0.08);
+
+            --border: rgba(255,255,255,0.09);
+
+            --text: #ffffff;
+            --text-secondary: #aaa5b5;
+            --text-muted: #777080;
+
+            --purple: #a855f7;
+            --purple-light: #c084fc;
+
+            --pink: #ec4899;
+
+            --green: #4ade80;
+            --red: #f87171;
+            --blue: #60a5fa;
+            --yellow: #facc15;
+
+            --radius: 18px;
+
+            --shadow:
+                0 20px 60px rgba(0,0,0,0.25);
+        }
+
+
+        html {
+            scroll-behavior: smooth;
         }
 
 
@@ -27,27 +71,66 @@
 
             min-height: 100vh;
 
+            color: var(--text);
+
+            font-family:
+                Inter,
+                ui-sans-serif,
+                system-ui,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Arial,
+                sans-serif;
+
             background:
+
                 radial-gradient(
-                    circle at top left,
-                    #35105f,
+                    circle at 10% 0%,
+                    rgba(139,92,246,0.22),
+                    transparent 30%
+                ),
+
+                radial-gradient(
+                    circle at 90% 10%,
+                    rgba(236,72,153,0.15),
+                    transparent 28%
+                ),
+
+                radial-gradient(
+                    circle at 50% 100%,
+                    rgba(91,33,182,0.13),
                     transparent 35%
                 ),
-                radial-gradient(
-                    circle at bottom right,
-                    #5a124e,
-                    transparent 35%
-                ),
-                #0d0715;
 
-            color: white;
-
+                var(--bg-main);
         }
 
 
+        button,
+        input {
+            font: inherit;
+        }
+
+
+        button {
+            border: none;
+        }
+
+
+        /* =========================================================
+           HEADER
+        ========================================================= */
+
         header {
 
-            height: 75px;
+            position: sticky;
+
+            top: 0;
+
+            z-index: 100;
+
+            height: 76px;
 
             display: flex;
 
@@ -55,23 +138,17 @@
 
             justify-content: space-between;
 
-            padding: 0 35px;
+            padding: 0 32px;
 
             border-bottom:
                 1px solid
-                rgba(255,255,255,0.1);
+                rgba(255,255,255,0.08);
 
             background:
-                rgba(10,5,18,0.75);
+                rgba(8,5,15,0.78);
 
-            backdrop-filter: blur(15px);
-
-            position: sticky;
-
-            top: 0;
-
-            z-index: 10;
-
+            backdrop-filter:
+                blur(18px);
         }
 
 
@@ -82,17 +159,14 @@
             align-items: center;
 
             gap: 12px;
-
         }
 
 
         .logo-icon {
 
-            width: 42px;
+            width: 43px;
 
-            height: 42px;
-
-            border-radius: 12px;
+            height: 43px;
 
             display: flex;
 
@@ -100,202 +174,475 @@
 
             justify-content: center;
 
+            border-radius: 13px;
+
             background:
                 linear-gradient(
                     135deg,
-                    #a855f7,
-                    #ec4899
+                    var(--purple),
+                    var(--pink)
                 );
 
-            font-size: 21px;
+            box-shadow:
+                0 8px 30px
+                rgba(168,85,247,0.28);
 
-            font-weight: bold;
+            font-size: 20px;
 
+            font-weight: 800;
         }
 
 
         .logo-text h2 {
 
-            font-size: 21px;
+            font-size: 20px;
 
+            letter-spacing: 0.2px;
         }
 
 
         .logo-text span {
 
-            color: #aaa;
+            display: block;
+
+            margin-top: 2px;
+
+            color: var(--text-muted);
+
+            font-size: 11px;
+
+            letter-spacing: 0.4px;
+        }
+
+
+        .header-right {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+        }
+
+
+        .admin-status {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            padding: 8px 12px;
+
+            border:
+                1px solid
+                rgba(74,222,128,0.18);
+
+            border-radius: 999px;
+
+            background:
+                rgba(74,222,128,0.07);
+
+            color: #86efac;
 
             font-size: 12px;
 
+            font-weight: 600;
+        }
+
+
+        .status-dot {
+
+            width: 7px;
+
+            height: 7px;
+
+            border-radius: 50%;
+
+            background: var(--green);
+
+            box-shadow:
+                0 0 10px
+                rgba(74,222,128,0.8);
         }
 
 
         .logout-btn {
 
+            padding: 10px 17px;
+
             border:
                 1px solid
-                rgba(255,255,255,0.15);
+                rgba(255,255,255,0.12);
+
+            border-radius: 11px;
 
             background:
-                rgba(255,255,255,0.06);
+                rgba(255,255,255,0.05);
 
             color: white;
 
-            padding: 10px 18px;
-
-            border-radius: 10px;
-
             cursor: pointer;
 
-            transition: 0.25s;
+            font-size: 13px;
 
+            font-weight: 600;
+
+            transition:
+                background 0.2s,
+                border-color 0.2s,
+                transform 0.2s;
         }
 
 
         .logout-btn:hover {
 
-            background: #ef4444;
+            background:
+                rgba(239,68,68,0.15);
 
-            border-color: #ef4444;
+            border-color:
+                rgba(239,68,68,0.35);
 
+            transform:
+                translateY(-1px);
         }
 
+
+        /* =========================================================
+           MAIN
+        ========================================================= */
 
         main {
 
-            max-width: 1250px;
+            width: min(
+                1250px,
+                calc(100% - 40px)
+            );
 
-            margin: auto;
+            margin: 0 auto;
 
-            padding: 35px 25px 60px;
-
+            padding:
+                42px 0 70px;
         }
 
 
+        /* =========================================================
+           WELCOME
+        ========================================================= */
+
         .welcome {
 
-            margin-bottom: 28px;
+            margin-bottom: 30px;
+        }
 
+
+        .eyebrow {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            margin-bottom: 12px;
+
+            padding: 6px 10px;
+
+            border:
+                1px solid
+                rgba(168,85,247,0.2);
+
+            border-radius: 999px;
+
+            background:
+                rgba(168,85,247,0.08);
+
+            color:
+                var(--purple-light);
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            letter-spacing: 0.7px;
+
+            text-transform: uppercase;
         }
 
 
         .welcome h1 {
 
-            font-size: 30px;
+            font-size:
+                clamp(27px, 4vw, 38px);
 
-            margin-bottom: 7px;
+            line-height: 1.15;
 
+            letter-spacing: -0.8px;
+
+            margin-bottom: 9px;
         }
 
 
         .welcome p {
 
-            color: #aaa;
+            color: var(--text-secondary);
 
+            font-size: 14px;
+
+            line-height: 1.6;
         }
 
+
+        /* =========================================================
+           STATS
+        ========================================================= */
 
         .stats {
 
             display: grid;
 
             grid-template-columns:
-                repeat(3,1fr);
+                repeat(4, 1fr);
 
-            gap: 18px;
+            gap: 15px;
 
-            margin-bottom: 30px;
-
+            margin-bottom: 28px;
         }
 
 
         .stat-card {
 
-            padding: 23px;
+            position: relative;
 
-            border-radius: 17px;
+            overflow: hidden;
+
+            padding: 21px;
 
             border:
                 1px solid
-                rgba(255,255,255,0.09);
+                var(--border);
+
+            border-radius: var(--radius);
 
             background:
-                rgba(255,255,255,0.055);
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,0.065),
+                    rgba(255,255,255,0.025)
+                );
 
-            backdrop-filter: blur(15px);
+            box-shadow:
+                0 10px 35px
+                rgba(0,0,0,0.12);
 
+            transition:
+                transform 0.2s,
+                border-color 0.2s;
+        }
+
+
+        .stat-card:hover {
+
+            transform:
+                translateY(-2px);
+
+            border-color:
+                rgba(255,255,255,0.15);
+        }
+
+
+        .stat-card::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 80px;
+
+            height: 80px;
+
+            right: -35px;
+
+            bottom: -35px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(168,85,247,0.12);
+
+            filter: blur(10px);
+        }
+
+
+        .stat-icon {
+
+            width: 35px;
+
+            height: 35px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            margin-bottom: 15px;
+
+            border-radius: 10px;
+
+            background:
+                rgba(168,85,247,0.12);
+
+            font-size: 16px;
         }
 
 
         .stat-title {
 
-            color: #aaa;
+            margin-bottom: 7px;
 
-            font-size: 14px;
+            color: var(--text-secondary);
 
-            margin-bottom: 10px;
+            font-size: 12px;
 
+            font-weight: 600;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.4px;
         }
 
 
         .stat-number {
 
-            font-size: 31px;
+            font-size: 30px;
 
-            font-weight: bold;
+            line-height: 1;
 
+            font-weight: 800;
+
+            letter-spacing: -0.8px;
         }
 
 
-        .controls {
+        .stat-subtitle {
+
+            margin-top: 8px;
+
+            color: var(--text-muted);
+
+            font-size: 11px;
+        }
+
+
+        /* =========================================================
+           TOOLBAR
+        ========================================================= */
+
+        .toolbar {
 
             display: flex;
 
-            gap: 12px;
+            align-items: center;
 
-            margin-bottom: 20px;
+            justify-content: space-between;
 
+            gap: 14px;
+
+            margin-bottom: 17px;
+        }
+
+
+        .search-wrapper {
+
+            position: relative;
+
+            flex: 1;
+        }
+
+
+        .search-icon {
+
+            position: absolute;
+
+            left: 15px;
+
+            top: 50%;
+
+            transform:
+                translateY(-50%);
+
+            color: var(--text-muted);
+
+            font-size: 15px;
+
+            pointer-events: none;
         }
 
 
         .search {
 
-            flex: 1;
+            width: 100%;
 
-            padding: 14px 17px;
+            height: 48px;
 
-            border-radius: 12px;
+            padding:
+                0 17px 0 43px;
 
             border:
                 1px solid
-                rgba(255,255,255,0.12);
+                rgba(255,255,255,0.11);
 
-            background:
-                rgba(255,255,255,0.06);
-
-            color: white;
+            border-radius: 13px;
 
             outline: none;
 
-            font-size: 14px;
+            background:
+                rgba(255,255,255,0.045);
 
+            color: white;
+
+            font-size: 13px;
+
+            transition:
+                border-color 0.2s,
+                background 0.2s,
+                box-shadow 0.2s;
         }
 
 
         .search::placeholder {
+            color: #716b79;
+        }
 
-            color: #888;
 
+        .search:focus {
+
+            border-color:
+                rgba(168,85,247,0.55);
+
+            background:
+                rgba(255,255,255,0.06);
+
+            box-shadow:
+                0 0 0 3px
+                rgba(168,85,247,0.09);
         }
 
 
         .refresh-btn {
 
-            padding: 0 20px;
+            height: 48px;
 
-            border: none;
+            padding:
+                0 18px;
 
-            border-radius: 12px;
+            border:
+                1px solid
+                rgba(255,255,255,0.1);
+
+            border-radius: 13px;
 
             background:
                 linear-gradient(
@@ -308,46 +655,245 @@
 
             cursor: pointer;
 
-            font-weight: bold;
+            font-size: 13px;
+
+            font-weight: 700;
+
+            white-space: nowrap;
+
+            transition:
+                transform 0.2s,
+                opacity 0.2s;
+        }
+
+
+        .refresh-btn:hover {
+            transform: translateY(-1px);
+        }
+
+
+        .refresh-btn:disabled {
+
+            opacity: 0.6;
+
+            cursor: wait;
+
+            transform: none;
+        }
+
+
+        /* =========================================================
+           FILTERS
+        ========================================================= */
+
+        .filters {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            margin-bottom: 22px;
+
+            overflow-x: auto;
+
+            scrollbar-width: none;
+        }
+
+
+        .filters::-webkit-scrollbar {
+            display: none;
+        }
+
+
+        .filter-btn {
+
+            padding:
+                8px 14px;
+
+            border:
+                1px solid
+                rgba(255,255,255,0.1);
+
+            border-radius: 999px;
+
+            background:
+                rgba(255,255,255,0.04);
+
+            color:
+                var(--text-secondary);
+
+            cursor: pointer;
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            white-space: nowrap;
+
+            transition:
+                background 0.2s,
+                color 0.2s,
+                border-color 0.2s;
+        }
+
+
+        .filter-btn:hover {
+
+            border-color:
+                rgba(255,255,255,0.18);
+
+            color: white;
+        }
+
+
+        .filter-btn.active {
+
+            border-color:
+                rgba(168,85,247,0.4);
+
+            background:
+                rgba(168,85,247,0.14);
+
+            color:
+                var(--purple-light);
+        }
+
+
+        /* =========================================================
+           STATUS BAR
+        ========================================================= */
+
+        .status-bar {
+
+            min-height: 22px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 10px;
+
+            margin-bottom: 14px;
+
+            color: var(--text-muted);
+
+            font-size: 12px;
+        }
+
+
+        .status-left {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+        }
+
+
+        .loading-spinner {
+
+            width: 13px;
+
+            height: 13px;
+
+            border:
+                2px solid
+                rgba(255,255,255,0.15);
+
+            border-top-color:
+                var(--purple-light);
+
+            border-radius: 50%;
+
+            animation:
+                spin 0.8s linear infinite;
+
+            display: none;
+        }
+
+
+        .loading-spinner.visible {
+            display: inline-block;
+        }
+
+
+        @keyframes spin {
+
+            to {
+                transform: rotate(360deg);
+            }
 
         }
 
 
-        #status {
-
-            margin-bottom: 20px;
-
-            color: #aaa;
-
-            font-size: 14px;
-
-        }
-
+        /* =========================================================
+           CONFESSIONS
+        ========================================================= */
 
         #confessions {
 
             display: grid;
 
-            gap: 16px;
-
+            gap: 14px;
         }
 
 
         .confession-card {
 
-            background:
-                rgba(255,255,255,0.055);
+            position: relative;
+
+            padding: 21px;
 
             border:
                 1px solid
-                rgba(255,255,255,0.09);
+                var(--border);
 
-            border-radius: 17px;
+            border-radius: var(--radius);
 
-            padding: 22px;
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,0.058),
+                    rgba(255,255,255,0.028)
+                );
 
-            backdrop-filter: blur(15px);
+            box-shadow:
+                var(--shadow);
 
+            transition:
+                transform 0.2s,
+                border-color 0.2s,
+                background 0.2s;
+        }
+
+
+        .confession-card:hover {
+
+            transform:
+                translateY(-2px);
+
+            border-color:
+                rgba(255,255,255,0.15);
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,0.072),
+                    rgba(255,255,255,0.035)
+                );
+        }
+
+
+        .confession-card.unread {
+
+            border-left:
+                3px solid
+                var(--green);
         }
 
 
@@ -355,56 +901,88 @@
 
             display: flex;
 
+            align-items: center;
+
             justify-content: space-between;
+
+            gap: 12px;
+
+            margin-bottom: 14px;
+        }
+
+
+        .confession-meta {
+
+            display: flex;
 
             align-items: center;
 
-            margin-bottom: 15px;
-
+            gap: 9px;
         }
 
 
         .confession-id {
 
-            color: #c084fc;
+            color:
+                var(--purple-light);
 
-            font-size: 13px;
+            font-size: 12px;
 
-            font-weight: bold;
+            font-weight: 800;
 
+            letter-spacing: 0.4px;
+        }
+
+
+        .anonymous-label {
+
+            color:
+                var(--text-muted);
+
+            font-size: 11px;
         }
 
 
         .badge {
 
-            padding: 5px 10px;
+            padding:
+                5px 9px;
 
-            border-radius: 20px;
+            border-radius: 999px;
 
-            font-size: 11px;
+            font-size: 10px;
 
-            font-weight: bold;
+            font-weight: 800;
 
+            letter-spacing: 0.5px;
         }
 
 
         .badge-new {
 
             background:
-                rgba(34,197,94,0.15);
+                rgba(34,197,94,0.12);
 
-            color: #4ade80;
+            color:
+                var(--green);
 
+            border:
+                1px solid
+                rgba(74,222,128,0.14);
         }
 
 
         .badge-read {
 
             background:
-                rgba(148,163,184,0.15);
+                rgba(148,163,184,0.09);
 
-            color: #94a3b8;
+            color:
+                #94a3b8;
 
+            border:
+                1px solid
+                rgba(148,163,184,0.12);
         }
 
 
@@ -412,27 +990,42 @@
 
             color: #eee;
 
-            line-height: 1.7;
+            font-size: 14px;
 
-            font-size: 15px;
+            line-height: 1.75;
 
             white-space: pre-wrap;
 
             word-break: break-word;
 
-            margin-bottom: 16px;
+            margin-bottom: 14px;
+        }
 
+
+        .date-row {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 12px;
+
+            padding-top: 12px;
+
+            border-top:
+                1px solid
+                rgba(255,255,255,0.06);
         }
 
 
         .date {
 
-            color: #777;
+            color:
+                var(--text-muted);
 
-            font-size: 12px;
-
-            margin-bottom: 18px;
-
+            font-size: 11px;
         }
 
 
@@ -440,169 +1033,375 @@
 
             display: flex;
 
-            gap: 10px;
+            align-items: center;
 
-            border-top:
-                1px solid
-                rgba(255,255,255,0.07);
-
-            padding-top: 15px;
-
+            gap: 8px;
         }
 
 
         .action-btn {
 
-            border: none;
-
-            padding: 9px 14px;
+            padding:
+                8px 12px;
 
             border-radius: 9px;
 
-            color: white;
-
             cursor: pointer;
 
-            font-size: 13px;
+            font-size: 11px;
 
-            transition: 0.2s;
+            font-weight: 700;
 
+            transition:
+                background 0.2s,
+                transform 0.2s;
+        }
+
+
+        .action-btn:hover {
+
+            transform:
+                translateY(-1px);
         }
 
 
         .read-btn {
 
             background:
-                rgba(34,197,94,0.15);
+                rgba(34,197,94,0.11);
 
-            color: #4ade80;
-
+            color:
+                var(--green);
         }
 
 
         .read-btn:hover {
 
             background:
-                rgba(34,197,94,0.3);
-
+                rgba(34,197,94,0.22);
         }
 
 
         .delete-btn {
 
             background:
-                rgba(239,68,68,0.15);
+                rgba(239,68,68,0.11);
 
-            color: #f87171;
-
+            color:
+                var(--red);
         }
 
 
         .delete-btn:hover {
 
             background:
-                rgba(239,68,68,0.3);
-
+                rgba(239,68,68,0.22);
         }
 
 
-        .empty {
+        /* =========================================================
+           EMPTY / LOADING / ERROR
+        ========================================================= */
 
-            text-align: center;
+        .empty,
+        .loading,
+        .error {
 
-            padding: 60px 20px;
+            padding:
+                55px 25px;
 
             border:
                 1px dashed
                 rgba(255,255,255,0.12);
 
-            border-radius: 17px;
+            border-radius: var(--radius);
 
-            color: #888;
+            text-align: center;
+        }
 
+
+        .empty-icon {
+
+            width: 54px;
+
+            height: 54px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            margin:
+                0 auto 15px;
+
+            border-radius: 16px;
+
+            background:
+                rgba(168,85,247,0.1);
+
+            font-size: 23px;
+        }
+
+
+        .empty h3 {
+
+            margin-bottom: 7px;
+
+            font-size: 16px;
+        }
+
+
+        .empty p {
+
+            color:
+                var(--text-muted);
+
+            font-size: 12px;
+
+            line-height: 1.6;
         }
 
 
         .loading {
 
-            text-align: center;
+            color:
+                var(--text-secondary);
 
-            padding: 50px;
+            border-style: solid;
+        }
 
-            color: #aaa;
 
+        .loading-big-spinner {
+
+            width: 27px;
+
+            height: 27px;
+
+            margin:
+                0 auto 14px;
+
+            border:
+                3px solid
+                rgba(255,255,255,0.1);
+
+            border-top-color:
+                var(--purple);
+
+            border-radius: 50%;
+
+            animation:
+                spin 0.8s linear infinite;
         }
 
 
         .error {
 
+            border-style: solid;
+
+            border-color:
+                rgba(239,68,68,0.25);
+
             background:
-                rgba(239,68,68,0.12);
+                rgba(239,68,68,0.08);
 
-            border:
-                1px solid
-                rgba(239,68,68,0.3);
+            color:
+                #fca5a5;
 
-            color: #fca5a5;
+            line-height: 1.6;
 
-            padding: 15px;
+            font-size: 13px;
+        }
 
-            border-radius: 12px;
+
+        .retry-btn {
+
+            margin-top: 15px;
+
+            padding:
+                9px 14px;
+
+            border-radius: 9px;
+
+            background:
+                rgba(255,255,255,0.08);
+
+            color: white;
+
+            cursor: pointer;
+
+            font-size: 12px;
+
+            font-weight: 700;
+        }
+
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 900px) {
+
+            .stats {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
 
         }
 
 
-        @media (max-width:700px) {
+        @media (max-width: 650px) {
 
             header {
 
-                padding: 0 18px;
+                height: auto;
 
+                min-height: 70px;
+
+                padding:
+                    13px 16px;
+
+                gap: 12px;
+            }
+
+
+            .logo-text span {
+                display: none;
+            }
+
+
+            .logo-text h2 {
+                font-size: 18px;
+            }
+
+
+            .logo-icon {
+
+                width: 39px;
+
+                height: 39px;
+            }
+
+
+            .admin-status {
+                display: none;
+            }
+
+
+            .logout-btn {
+
+                padding:
+                    9px 12px;
+
+                font-size: 12px;
             }
 
 
             main {
 
-                padding:
-                    25px 15px 50px;
+                width:
+                    calc(100% - 26px);
 
+                padding-top: 30px;
             }
 
 
             .stats {
 
                 grid-template-columns:
-                    1fr;
+                    repeat(2, 1fr);
 
+                gap: 10px;
             }
 
 
-            .controls {
+            .stat-card {
 
-                flex-direction:
-                    column;
+                padding: 16px;
+            }
 
+
+            .stat-number {
+
+                font-size: 25px;
+            }
+
+
+            .toolbar {
+
+                flex-direction: column;
+
+                align-items: stretch;
             }
 
 
             .refresh-btn {
 
-                padding: 13px;
-
+                width: 100%;
             }
 
 
-            .welcome h1 {
+            .confession-card {
 
-                font-size: 25px;
+                padding: 17px;
+            }
 
+
+            .confession-top {
+
+                align-items: flex-start;
+            }
+
+
+            .date-row {
+
+                flex-direction: column;
+
+                align-items: stretch;
             }
 
 
             .actions {
 
-                flex-wrap: wrap;
+                width: 100%;
+            }
 
+
+            .action-btn {
+
+                flex: 1;
+
+                text-align: center;
+            }
+
+        }
+
+
+        @media (max-width: 420px) {
+
+            .stats {
+
+                grid-template-columns:
+                    1fr 1fr;
+            }
+
+
+            .stat-title {
+
+                font-size: 10px;
+            }
+
+
+            .stat-number {
+
+                font-size: 23px;
+            }
+
+
+            .welcome h1 {
+
+                font-size: 26px;
             }
 
         }
@@ -615,441 +1414,838 @@
 <body>
 
 
-<header>
+    <!-- =========================================================
+         HEADER
+    ========================================================== -->
 
+    <header>
 
-    <div class="logo">
+        <div class="logo">
 
-
-        <div class="logo-icon">
-            B
-        </div>
-
-
-        <div class="logo-text">
-
-            <h2>BBDIANS</h2>
-
-            <span>
-                Private Admin Panel
-            </span>
-
-        </div>
-
-
-    </div>
-
-
-    <button
-        class="logout-btn"
-        onclick="logout()"
-    >
-        Logout
-    </button>
-
-
-</header>
-
-
-
-<main>
-
-
-    <div class="welcome">
-
-        <h1>
-            Admin Dashboard 👋
-        </h1>
-
-        <p>
-            Manage anonymous confessions
-            submitted through BBDIANS.
-        </p>
-
-    </div>
-
-
-
-    <section class="stats">
-
-
-        <div class="stat-card">
-
-            <div class="stat-title">
-                Total Confessions
+            <div class="logo-icon">
+                B
             </div>
 
-            <div
-                class="stat-number"
-                id="totalCount"
+            <div class="logo-text">
+
+                <h2>BBDIANS</h2>
+
+                <span>
+                    Private Admin Panel
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="header-right">
+
+            <div class="admin-status">
+
+                <span class="status-dot"></span>
+
+                Admin Session Active
+
+            </div>
+
+
+            <button
+                class="logout-btn"
+                onclick="logout()"
             >
-                0
-            </div>
+                Logout
+            </button>
 
         </div>
 
+    </header>
 
-        <div class="stat-card">
 
-            <div class="stat-title">
-                New Confessions
+
+    <!-- =========================================================
+         MAIN
+    ========================================================== -->
+
+    <main>
+
+
+        <!-- WELCOME -->
+
+        <section class="welcome">
+
+            <div class="eyebrow">
+                🔐 Secure Management
             </div>
 
-            <div
-                class="stat-number"
-                id="newCount"
+            <h1>
+                Admin Dashboard 👋
+            </h1>
+
+            <p>
+                Manage anonymous confessions submitted
+                through BBDIANS.
+            </p>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             STATISTICS
+        ====================================================== -->
+
+        <section class="stats">
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    💬
+                </div>
+
+                <div class="stat-title">
+                    Total Confessions
+                </div>
+
+                <div
+                    class="stat-number"
+                    id="totalCount"
+                >
+                    0
+                </div>
+
+                <div class="stat-subtitle">
+                    All submissions
+                </div>
+
+            </div>
+
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    🆕
+                </div>
+
+                <div class="stat-title">
+                    New
+                </div>
+
+                <div
+                    class="stat-number"
+                    id="newCount"
+                >
+                    0
+                </div>
+
+                <div class="stat-subtitle">
+                    Waiting to be read
+                </div>
+
+            </div>
+
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    👁️
+                </div>
+
+                <div class="stat-title">
+                    Read
+                </div>
+
+                <div
+                    class="stat-number"
+                    id="readCount"
+                >
+                    0
+                </div>
+
+                <div class="stat-subtitle">
+                    Already reviewed
+                </div>
+
+            </div>
+
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    📊
+                </div>
+
+                <div class="stat-title">
+                    Read Rate
+                </div>
+
+                <div
+                    class="stat-number"
+                    id="readRate"
+                >
+                    0%
+                </div>
+
+                <div class="stat-subtitle">
+                    Review progress
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =====================================================
+             SEARCH + REFRESH
+        ====================================================== -->
+
+        <div class="toolbar">
+
+            <div class="search-wrapper">
+
+                <span class="search-icon">
+                    🔎
+                </span>
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    class="search"
+                    placeholder="Search confession messages..."
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+            <button
+                class="refresh-btn"
+                id="refreshBtn"
+                onclick="loadConfessions()"
             >
-                0
-            </div>
+                ↻ Refresh
+            </button>
 
         </div>
 
 
-        <div class="stat-card">
 
-            <div class="stat-title">
-                Read Confessions
-            </div>
+        <!-- =====================================================
+             FILTERS
+        ====================================================== -->
 
-            <div
-                class="stat-number"
-                id="readCount"
+        <div class="filters">
+
+            <button
+                class="filter-btn active"
+                data-filter="all"
+                onclick="setFilter('all', this)"
             >
-                0
+                All
+            </button>
+
+
+            <button
+                class="filter-btn"
+                data-filter="new"
+                onclick="setFilter('new', this)"
+            >
+                🆕 New
+            </button>
+
+
+            <button
+                class="filter-btn"
+                data-filter="read"
+                onclick="setFilter('read', this)"
+            >
+                👁 Read
+            </button>
+
+        </div>
+
+
+
+        <!-- =====================================================
+             STATUS
+        ====================================================== -->
+
+        <div class="status-bar">
+
+            <div class="status-left">
+
+                <span
+                    id="loadingSpinner"
+                    class="loading-spinner"
+                ></span>
+
+                <span id="status">
+                    Loading confessions...
+                </span>
+
             </div>
 
         </div>
 
 
-    </section>
+
+        <!-- =====================================================
+             CONFESSIONS
+        ====================================================== -->
+
+        <section id="confessions">
+
+            <div class="loading">
+
+                <div class="loading-big-spinner"></div>
+
+                Loading confessions...
+
+            </div>
+
+        </section>
+
+
+    </main>
 
 
 
-    <div class="controls">
+    <!-- =========================================================
+         JAVASCRIPT
+    ========================================================== -->
+
+    <script>
 
 
-        <input
-            type="text"
-            id="searchInput"
-            class="search"
-            placeholder="Search confessions..."
-        >
+        /* =========================================================
+           API
+        ========================================================= */
+
+        const API_BASE =
+            "https://bbdians-backend.onrender.com";
 
 
-        <button
-            class="refresh-btn"
-            onclick="loadConfessions()"
-        >
-            ↻ Refresh
-        </button>
+        /* =========================================================
+           AUTHENTICATION
+        ========================================================= */
+
+        const adminToken =
+            sessionStorage.getItem(
+                "bbdians_admin_token"
+            );
 
 
-    </div>
-
-
-
-    <div id="status">
-        Loading confessions...
-    </div>
-
-
-
-    <section id="confessions">
-
-        <div class="loading">
-            Loading...
-        </div>
-
-    </section>
-
-
-</main>
-
-
-
-<script>
-
-
-/* API */
-
-const API_BASE =
-    "https://bbdians-backend.onrender.com";
-
-
-/* GET JWT TOKEN */
-
-const adminToken =
-    sessionStorage.getItem(
-        "bbdians_admin_token"
-    );
-
-
-const isAdmin =
-    sessionStorage.getItem(
-        "bbdians_admin"
-    );
-
-
-/*
- * If there is no token,
- * return to login.
- */
-
-if (
-    isAdmin !== "true" ||
-    !adminToken
-) {
-
-    window.location.href =
-        "admin.html";
-
-}
-
-
-/* DATA */
-
-let allConfessions = [];
-
-
-
-/* AUTH HEADERS */
-
-function getAuthHeaders() {
-
-    return {
-
-        "Authorization":
-            `Bearer ${adminToken}`
-
-    };
-
-}
-
-
-
-/* LOAD CONFESSIONS */
-
-async function loadConfessions() {
-
-
-    const container =
-        document.getElementById(
-            "confessions"
-        );
-
-
-    const status =
-        document.getElementById(
-            "status"
-        );
-
-
-    container.innerHTML =
-        `
-        <div class="loading">
-            Loading confessions...
-        </div>
-        `;
-
-
-    status.textContent =
-        "Connecting to BBDIANS server...";
-
-
-    try {
-
-
-        const response =
-            await fetch(
-                `${API_BASE}/admin/confessions`,
-                {
-                    method: "GET",
-
-                    headers:
-                        getAuthHeaders()
-                }
+        const isAdmin =
+            sessionStorage.getItem(
+                "bbdians_admin"
             );
 
 
         if (
-            response.status === 401
+            isAdmin !== "true" ||
+            !adminToken
         ) {
 
-            logout();
-
-            return;
+            window.location.href =
+                "admin.html";
 
         }
 
 
-        if (!response.ok) {
+        /* =========================================================
+           DATA
+        ========================================================== */
 
-            throw new Error(
-                "Unable to load confessions."
+        let allConfessions = [];
+
+        let currentFilter = "all";
+
+        let currentSearch = "";
+
+
+        /* =========================================================
+           AUTH HEADERS
+        ========================================================== */
+
+        function getAuthHeaders() {
+
+            return {
+
+                "Authorization":
+                    `Bearer ${adminToken}`
+
+            };
+
+        }
+
+
+        /* =========================================================
+           LOAD CONFESSIONS
+        ========================================================== */
+
+        async function loadConfessions() {
+
+            const container =
+                document.getElementById(
+                    "confessions"
+                );
+
+
+            const status =
+                document.getElementById(
+                    "status"
+                );
+
+
+            const spinner =
+                document.getElementById(
+                    "loadingSpinner"
+                );
+
+
+            const refreshBtn =
+                document.getElementById(
+                    "refreshBtn"
+                );
+
+
+            spinner.classList.add(
+                "visible"
+            );
+
+
+            refreshBtn.disabled = true;
+
+
+            status.textContent =
+                "Loading confessions...";
+
+
+            container.innerHTML = `
+
+                <div class="loading">
+
+                    <div class="loading-big-spinner"></div>
+
+                    Loading confessions...
+
+                </div>
+
+            `;
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        `${API_BASE}/admin/confessions`,
+                        {
+                            method: "GET",
+
+                            headers:
+                                getAuthHeaders()
+                        }
+                    );
+
+
+                if (
+                    response.status === 401
+                ) {
+
+                    logout();
+
+                    return;
+
+                }
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Unable to load confessions."
+                    );
+
+                }
+
+
+                allConfessions =
+                    await response.json();
+
+
+                updateStats();
+
+                applyFilters();
+
+
+                status.textContent =
+                    `${allConfessions.length} confession(s) loaded`;
+
+            }
+
+
+            catch (error) {
+
+                console.error(error);
+
+
+                container.innerHTML = `
+
+                    <div class="error">
+
+                        ❌
+                        ${escapeHtml(
+                            error.message
+                        )}
+
+                        <br>
+
+                        The BBDIANS server could not
+                        be reached.
+
+                        <br>
+
+                        <button
+                            class="retry-btn"
+                            onclick="loadConfessions()"
+                        >
+                            Try Again
+                        </button>
+
+                    </div>
+
+                `;
+
+
+                status.textContent =
+                    "Connection failed.";
+
+            }
+
+
+            finally {
+
+                spinner.classList.remove(
+                    "visible"
+                );
+
+                refreshBtn.disabled = false;
+
+            }
+
+        }
+
+
+        /* =========================================================
+           UPDATE STATISTICS
+        ========================================================== */
+
+        function updateStats() {
+
+            const total =
+                allConfessions.length;
+
+
+            const unread =
+                allConfessions.filter(
+                    confession =>
+                        !confession.is_read
+                ).length;
+
+
+            const read =
+                allConfessions.filter(
+                    confession =>
+                        confession.is_read
+                ).length;
+
+
+            const readRate =
+                total === 0
+                    ? 0
+                    : Math.round(
+                        (read / total) * 100
+                    );
+
+
+            document.getElementById(
+                "totalCount"
+            ).textContent =
+                total;
+
+
+            document.getElementById(
+                "newCount"
+            ).textContent =
+                unread;
+
+
+            document.getElementById(
+                "readCount"
+            ).textContent =
+                read;
+
+
+            document.getElementById(
+                "readRate"
+            ).textContent =
+                `${readRate}%`;
+
+        }
+
+
+        /* =========================================================
+           FILTER
+        ========================================================== */
+
+        function setFilter(
+            filter,
+            button
+        ) {
+
+            currentFilter =
+                filter;
+
+
+            document
+                .querySelectorAll(
+                    ".filter-btn"
+                )
+                .forEach(
+                    btn =>
+                        btn.classList.remove(
+                            "active"
+                        )
+                );
+
+
+            button.classList.add(
+                "active"
+            );
+
+
+            applyFilters();
+
+        }
+
+
+        /* =========================================================
+           SEARCH + FILTER
+        ========================================================== */
+
+        function applyFilters() {
+
+            let filtered =
+                [...allConfessions];
+
+
+            if (
+                currentFilter === "new"
+            ) {
+
+                filtered =
+                    filtered.filter(
+                        confession =>
+                            !confession.is_read
+                    );
+
+            }
+
+
+            if (
+                currentFilter === "read"
+            ) {
+
+                filtered =
+                    filtered.filter(
+                        confession =>
+                            confession.is_read
+                    );
+
+            }
+
+
+            if (currentSearch) {
+
+                filtered =
+                    filtered.filter(
+                        confession =>
+                            confession.message
+                                .toLowerCase()
+                                .includes(
+                                    currentSearch
+                                )
+                    );
+
+            }
+
+
+            renderConfessions(
+                filtered
+            );
+
+
+            updateStatus(
+                filtered.length
             );
 
         }
 
 
-        allConfessions =
-            await response.json();
+        /* =========================================================
+           STATUS TEXT
+        ========================================================== */
 
+        function updateStatus(
+            count
+        ) {
 
-        updateStats();
+            let filterText =
+                "confession";
 
 
-        renderConfessions(
-            allConfessions
-        );
+            if (
+                currentFilter === "new"
+            ) {
 
+                filterText =
+                    "new confession";
 
-        status.textContent =
-            `${allConfessions.length} confession(s) loaded`;
+            }
 
 
-    }
+            if (
+                currentFilter === "read"
+            ) {
 
+                filterText =
+                    "read confession";
 
-    catch (error) {
+            }
 
 
-        console.error(error);
+            if (count !== 1) {
 
+                filterText += "s";
 
-        container.innerHTML =
-            `
-            <div class="error">
+            }
 
-                ❌ ${escapeHtml(
-                    error.message
-                )}
 
-                <br><br>
+            if (currentSearch) {
 
-                Make sure the FastAPI
-                backend is running.
+                document.getElementById(
+                    "status"
+                ).textContent =
+                    `${count} ${filterText} found`;
 
-            </div>
-            `;
+            }
+            else {
 
+                document.getElementById(
+                    "status"
+                ).textContent =
+                    `${count} ${filterText} shown`;
 
-        status.textContent =
-            "Connection failed.";
+            }
 
-    }
+        }
 
-}
 
+        /* =========================================================
+           RENDER CONFESSIONS
+        ========================================================== */
 
+        function renderConfessions(
+            confessions
+        ) {
 
-/* UPDATE STATS */
+            const container =
+                document.getElementById(
+                    "confessions"
+                );
 
-function updateStats() {
 
+            if (
+                !confessions.length
+            ) {
 
-    const total =
-        allConfessions.length;
+                container.innerHTML = `
 
+                    <div class="empty">
 
-    const unread =
-        allConfessions.filter(
-            item =>
-                !item.is_read
-        ).length;
+                        <div class="empty-icon">
+                            💭
+                        </div>
 
+                        <h3>
+                            No confessions found
+                        </h3>
 
-    const read =
-        allConfessions.filter(
-            item =>
-                item.is_read
-        ).length;
+                        <p>
+                            There are no confessions
+                            matching your current
+                            search or filter.
+                        </p>
 
+                    </div>
 
-    document.getElementById(
-        "totalCount"
-    ).textContent =
-        total;
+                `;
 
+                return;
 
-    document.getElementById(
-        "newCount"
-    ).textContent =
-        unread;
+            }
 
 
-    document.getElementById(
-        "readCount"
-    ).textContent =
-        read;
+            container.innerHTML =
+                confessions
+                    .map(
+                        confession =>
+                            createConfessionCard(
+                                confession
+                            )
+                    )
+                    .join("");
 
-}
+        }
 
 
+        /* =========================================================
+           CREATE CONFESSION CARD
+        ========================================================== */
 
-/* RENDER */
+        function createConfessionCard(
+            confession
+        ) {
 
-function renderConfessions(
-    confessions
-) {
+            const date =
+                formatDate(
+                    confession.created_at
+                );
 
 
-    const container =
-        document.getElementById(
-            "confessions"
-        );
+            const isRead =
+                Boolean(
+                    confession.is_read
+                );
 
 
-    if (
-        !confessions.length
-    ) {
+            return `
 
+                <article
+                    class="
+                        confession-card
+                        ${isRead ? "" : "unread"}
+                    "
+                >
 
-        container.innerHTML =
-            `
-            <div class="empty">
+                    <div class="confession-top">
 
-                <h3>
-                    No confessions found
-                </h3>
-
-                <p>
-                    Anonymous confessions
-                    will appear here.
-                </p>
-
-            </div>
-            `;
-
-
-        return;
-
-    }
-
-
-
-    container.innerHTML =
-        confessions
-            .map(
-                confession => {
-
-
-                    const date =
-                        new Date(
-                            confession.created_at
-                        ).toLocaleString();
-
-
-                    return `
-
-                    <article
-                        class="confession-card"
-                    >
-
-
-                        <div
-                            class="confession-top"
-                        >
-
+                        <div class="confession-meta">
 
                             <span
                                 class="confession-id"
@@ -1058,80 +2254,76 @@ function renderConfessions(
                                 #${confession.id}
                             </span>
 
-
                             <span
-                                class="
-                                    badge
-                                    ${
-                                        confession.is_read
-                                        ? "badge-read"
-                                        : "badge-new"
-                                    }
-                                "
+                                class="anonymous-label"
                             >
-
-                                ${
-                                    confession.is_read
-                                    ? "READ"
-                                    : "NEW"
-                                }
-
+                                • Anonymous
                             </span>
 
+                        </div>
+
+
+                        <span
+                            class="
+                                badge
+                                ${
+                                    isRead
+                                        ? "badge-read"
+                                        : "badge-new"
+                                }
+                            "
+                        >
+                            ${
+                                isRead
+                                    ? "READ"
+                                    : "NEW"
+                            }
+                        </span>
+
+                    </div>
+
+
+                    <div class="message">
+
+                        ${escapeHtml(
+                            confession.message
+                        )}
+
+                    </div>
+
+
+                    <div class="date-row">
+
+                        <div class="date">
+
+                            🕒 ${date}
 
                         </div>
 
 
-
-                        <div
-                            class="message"
-                        >
-
-                            ${escapeHtml(
-                                confession.message
-                            )}
-
-                        </div>
-
-
-
-                        <div
-                            class="date"
-                        >
-
-                            ${date}
-
-                        </div>
-
-
-
-                        <div
-                            class="actions"
-                        >
-
+                        <div class="actions">
 
                             ${
-                                confession.is_read
-                                ? ""
-                                : `
+                                isRead
+                                    ? ""
+                                    : `
 
-                                <button
-                                    class="
-                                        action-btn
-                                        read-btn
-                                    "
-                                    onclick="
-                                        markAsRead(
-                                            ${confession.id}
-                                        )
-                                    "
-                                >
-                                    ✓ Mark as Read
-                                </button>
+                                        <button
+                                            class="
+                                                action-btn
+                                                read-btn
+                                            "
+                                            onclick="
+                                                markAsRead(
+                                                    ${confession.id}
+                                                )
+                                            "
+                                        >
+                                            ✓ Mark as Read
+                                        </button>
 
-                                `
+                                    `
                             }
-
 
 
                             <button
@@ -1148,248 +2340,261 @@ function renderConfessions(
                                 🗑 Delete
                             </button>
 
-
                         </div>
 
+                    </div>
 
-                    </article>
+                </article>
 
-                    `;
+            `;
 
-                }
-            )
-            .join("");
-
-}
+        }
 
 
+        /* =========================================================
+           FORMAT DATE
+        ========================================================== */
 
-/* MARK AS READ */
-
-async function markAsRead(
-    confessionId
-) {
-
-
-    try {
-
-
-        const response =
-            await fetch(
-                `${API_BASE}/admin/confessions/${confessionId}/read`,
-                {
-                    method: "PUT",
-
-                    headers:
-                        getAuthHeaders()
-                }
-            );
-
-
-        if (
-            response.status === 401
+        function formatDate(
+            value
         ) {
 
-            logout();
-
-            return;
-
-        }
+            const date =
+                new Date(value);
 
 
-        if (!response.ok) {
+            if (
+                Number.isNaN(
+                    date.getTime()
+                )
+            ) {
 
-            throw new Error(
-                "Could not mark confession as read."
-            );
+                return "Unknown date";
 
-        }
-
-
-        await loadConfessions();
-
-    }
+            }
 
 
-    catch (error) {
-
-        alert(
-            error.message
-        );
-
-    }
-
-}
-
-
-
-/* DELETE */
-
-async function deleteConfession(
-    confessionId
-) {
-
-
-    const confirmed =
-        confirm(
-            "Are you sure you want to permanently delete this confession?"
-        );
-
-
-    if (!confirmed) {
-
-        return;
-
-    }
-
-
-
-    try {
-
-
-        const response =
-            await fetch(
-                `${API_BASE}/admin/confessions/${confessionId}`,
+            return date.toLocaleString(
+                undefined,
                 {
-                    method: "DELETE",
-
-                    headers:
-                        getAuthHeaders()
+                    dateStyle: "medium",
+                    timeStyle: "short"
                 }
             );
 
+        }
 
-        if (
-            response.status === 401
+
+        /* =========================================================
+           MARK AS READ
+        ========================================================== */
+
+        async function markAsRead(
+            confessionId
         ) {
 
-            logout();
+            try {
 
-            return;
+                const response =
+                    await fetch(
+                        `${API_BASE}/admin/confessions/${confessionId}/read`,
+                        {
+                            method: "PUT",
+
+                            headers:
+                                getAuthHeaders()
+                        }
+                    );
+
+
+                if (
+                    response.status === 401
+                ) {
+
+                    logout();
+
+                    return;
+
+                }
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Could not mark confession as read."
+                    );
+
+                }
+
+
+                await loadConfessions();
+
+            }
+
+
+            catch (error) {
+
+                console.error(error);
+
+                alert(
+                    error.message
+                );
+
+            }
 
         }
 
 
-        if (!response.ok) {
+        /* =========================================================
+           DELETE CONFESSION
+        ========================================================== */
 
-            throw new Error(
-                "Could not delete confession."
-            );
+        async function deleteConfession(
+            confessionId
+        ) {
 
-        }
-
-
-        await loadConfessions();
-
-    }
-
-
-    catch (error) {
-
-        alert(
-            error.message
-        );
-
-    }
-
-}
-
-
-
-/* SEARCH */
-
-document
-    .getElementById(
-        "searchInput"
-    )
-    .addEventListener(
-        "input",
-        function () {
-
-
-            const search =
-                this.value
-                    .toLowerCase()
-                    .trim();
-
-
-            const filtered =
-                allConfessions.filter(
-                    confession =>
-                        confession.message
-                            .toLowerCase()
-                            .includes(
-                                search
-                            )
+            const confirmed =
+                confirm(
+                    "Are you sure you want to permanently delete this confession?"
                 );
 
 
-            renderConfessions(
-                filtered
+            if (!confirmed) {
+
+                return;
+
+            }
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        `${API_BASE}/admin/confessions/${confessionId}`,
+                        {
+                            method: "DELETE",
+
+                            headers:
+                                getAuthHeaders()
+                        }
+                    );
+
+
+                if (
+                    response.status === 401
+                ) {
+
+                    logout();
+
+                    return;
+
+                }
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Could not delete confession."
+                    );
+
+                }
+
+
+                await loadConfessions();
+
+            }
+
+
+            catch (error) {
+
+                console.error(error);
+
+                alert(
+                    error.message
+                );
+
+            }
+
+        }
+
+
+        /* =========================================================
+           SEARCH
+        ========================================================== */
+
+        document
+            .getElementById(
+                "searchInput"
+            )
+            .addEventListener(
+                "input",
+                function () {
+
+                    currentSearch =
+                        this.value
+                            .toLowerCase()
+                            .trim();
+
+
+                    applyFilters();
+
+                }
             );
 
 
-            document.getElementById(
-                "status"
-            ).textContent =
-                `${filtered.length} confession(s) found`;
+        /* =========================================================
+           ESCAPE HTML
+        ========================================================== */
+
+        function escapeHtml(
+            text
+        ) {
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+
+            div.textContent =
+                text;
+
+
+            return div.innerHTML;
 
         }
-    );
 
 
+        /* =========================================================
+           LOGOUT
+        ========================================================== */
 
-/* ESCAPE HTML */
+        function logout() {
 
-function escapeHtml(
-    text
-) {
-
-
-    const div =
-        document.createElement(
-            "div"
-        );
+            sessionStorage.removeItem(
+                "bbdians_admin"
+            );
 
 
-    div.textContent =
-        text;
+            sessionStorage.removeItem(
+                "bbdians_admin_token"
+            );
 
 
-    return div.innerHTML;
+            window.location.href =
+                "admin.html";
 
-}
-
-
-
-/* LOGOUT */
-
-function logout() {
+        }
 
 
-    sessionStorage.removeItem(
-        "bbdians_admin"
-    );
+        /* =========================================================
+           START
+        ========================================================== */
+
+        loadConfessions();
 
 
-    sessionStorage.removeItem(
-        "bbdians_admin_token"
-    );
-
-
-    window.location.href =
-        "admin.html";
-
-}
-
-
-
-/* START */
-
-loadConfessions();
-
-
-</script>
+    </script>
 
 
 </body>
